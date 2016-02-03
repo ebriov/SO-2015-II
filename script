@@ -1,0 +1,21 @@
+#!/bin/bash
+contador1=0;
+contador2=0;
+file1="/home/jgarciah/bashreduce/inputs/updatesites"
+file2="/home/jgarciah/bashreduce/inputs/access.log" 
+echo "prueba de un script que lee 2 archivos y los une en uno nuevo";
+while IFS='' read -r line || [[ -n "$line" ]]; do
+        contador1=$((contador1+1))
+done < "$file1"
+
+while IFS='' read -r line || [[ -n "$line" ]]; do
+        contador2=$((contador2+1))
+done < "$file2"
+
+veces1=$(grep -cow "$1" "$file1");
+veces2=$(grep -cow "$1" "$file2");
+
+echo "en $contador1 lineas, se encontro la palabra $1: $veces1 veces";
+echo "en $contador2 lineas, se encontro la palabra $1: $veces2 veces";
+cat "$file1" "$file2" > "$2"
+echo "fin del script";
